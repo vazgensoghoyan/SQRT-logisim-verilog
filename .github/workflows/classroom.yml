@@ -1,0 +1,14 @@
+name: Circuit (Verilog) Autotests
+run-name: Testing ${{ github.repository }} by @${{ github.actor }}
+
+on:
+  create:
+  workflow_dispatch: 
+
+jobs:
+  run-tests:
+    with:
+      student_url: ${{ github.repository }}
+      student_ref: ${{ github.sha }}
+    uses: skkv-mathcs/private-tools-25/.github/workflows/circuit.yml@main
+    secrets: inherit
