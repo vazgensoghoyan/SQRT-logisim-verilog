@@ -234,4 +234,83 @@
     <wire from="(90,190)" to="(200,190)"/>
     <wire from="(90,90)" to="(140,90)"/>
   </circuit>
+  <circuit name="sum2">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="sum2"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="4.0"/>
+    <comp lib="0" loc="(100,160)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="B"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(100,160)" name="Splitter"/>
+    <comp lib="0" loc="(100,230)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="Cin"/>
+    </comp>
+    <comp lib="0" loc="(100,80)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="A"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(100,80)" name="Splitter"/>
+    <comp lib="0" loc="(150,160)" name="Tunnel">
+      <a name="label" val="B1"/>
+    </comp>
+    <comp lib="0" loc="(150,90)" name="Tunnel">
+      <a name="label" val="A1"/>
+    </comp>
+    <comp lib="0" loc="(490,210)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="A1"/>
+    </comp>
+    <comp lib="0" loc="(490,250)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="B1"/>
+    </comp>
+    <comp lib="0" loc="(830,250)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Cout"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="0" loc="(840,100)" name="Splitter">
+      <a name="facing" val="west"/>
+    </comp>
+    <comp lib="0" loc="(870,100)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="S"/>
+      <a name="output" val="true"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp loc="(430,110)" name="sum1"/>
+    <comp loc="(770,230)" name="sum1"/>
+    <wire from="(100,230)" to="(190,230)"/>
+    <wire from="(120,130)" to="(120,140)"/>
+    <wire from="(120,130)" to="(210,130)"/>
+    <wire from="(120,150)" to="(120,160)"/>
+    <wire from="(120,160)" to="(150,160)"/>
+    <wire from="(120,60)" to="(190,60)"/>
+    <wire from="(120,70)" to="(120,90)"/>
+    <wire from="(120,90)" to="(150,90)"/>
+    <wire from="(190,110)" to="(210,110)"/>
+    <wire from="(190,150)" to="(190,230)"/>
+    <wire from="(190,150)" to="(210,150)"/>
+    <wire from="(190,60)" to="(190,110)"/>
+    <wire from="(430,110)" to="(820,110)"/>
+    <wire from="(430,130)" to="(430,300)"/>
+    <wire from="(430,300)" to="(520,300)"/>
+    <wire from="(490,210)" to="(520,210)"/>
+    <wire from="(490,250)" to="(550,250)"/>
+    <wire from="(520,210)" to="(520,230)"/>
+    <wire from="(520,230)" to="(550,230)"/>
+    <wire from="(520,270)" to="(520,300)"/>
+    <wire from="(520,270)" to="(550,270)"/>
+    <wire from="(770,120)" to="(770,230)"/>
+    <wire from="(770,120)" to="(820,120)"/>
+    <wire from="(770,250)" to="(830,250)"/>
+    <wire from="(840,100)" to="(870,100)"/>
+  </circuit>
 </project>
