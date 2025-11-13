@@ -1846,18 +1846,13 @@
       <a name="label" val="NOT_Q"/>
       <a name="output" val="true"/>
     </comp>
-    <comp lib="1" loc="(280,270)" name="AND Gate"/>
     <comp lib="1" loc="(360,230)" name="NOT Gate"/>
     <comp loc="(600,230)" name="rs_trigger_sync"/>
     <wire from="(150,230)" to="(320,230)"/>
-    <wire from="(150,290)" to="(230,290)"/>
-    <wire from="(150,350)" to="(200,350)"/>
-    <wire from="(200,250)" to="(200,350)"/>
-    <wire from="(200,250)" to="(230,250)"/>
-    <wire from="(200,350)" to="(320,350)"/>
-    <wire from="(280,270)" to="(300,270)"/>
-    <wire from="(300,250)" to="(300,270)"/>
-    <wire from="(300,250)" to="(380,250)"/>
+    <wire from="(150,290)" to="(280,290)"/>
+    <wire from="(150,350)" to="(320,350)"/>
+    <wire from="(280,250)" to="(280,290)"/>
+    <wire from="(280,250)" to="(380,250)"/>
     <wire from="(320,230)" to="(320,270)"/>
     <wire from="(320,230)" to="(330,230)"/>
     <wire from="(320,270)" to="(380,270)"/>
