@@ -36,7 +36,7 @@ module sqrt2(
         is_input_nan, is_input_inf, given_input
     );
 
-    reg[15:0] special_out;
+    wire[15:0] special_out;
     wire is_nan, is_pinf, is_ninf, bypass_core;
 
     special_case_handler _sch(
@@ -118,3 +118,60 @@ module counter(output reg[7:0] OUT, input CLK, ENABLE);
     end
   end
 endmodule
+
+module get_exp_mant_norm(
+    output wire[15:0] MANT_OUT,
+    output wire[4:0] EXP_OUT,
+    input wire[9:0] MANT,
+    input wire[4:0] EXP
+);
+    wire is_exp_even = ~EXP[0];
+    wire [4:0] exp_adj = (EXP - is_exp_even) >> 1;
+    assign EXP_OUT = exp_adj + 5'd8;
+    assign MANT_OUT = is_exp_even ? ({1'b1, MANT} << 6) : ({1'b1, MANT} << 5);
+endmodule
+
+module get_exp_mant_denorm(
+    input  wire [9:0] MANT,
+    output reg  [15:0] MANT_OUT,
+    output reg  [4:0] EXP_OUT
+);
+    integer i;
+    reg [4:0] shift;
+    reg [10:0] mant_shifted;
+
+    always @(*) begin
+        shift = 0;
+
+        for (i=9; i>=0; i=i-1) begin
+            if (MANT[i]) begin
+                shift = 9 - i;
+                i = -1;
+            end
+        end
+
+        if (shift[0]) shift = shift + 1;
+        mant_shifted = {1'b1, MANT} << shift;
+
+        MANT_OUT = {5'd0, mant_shifted};
+        EXP_OUT = 5'd8 - (shift >> 1);
+    end
+endmodule
+
+module get_exp_mant(
+    input  wire [9:0] MANT,
+    input  wire [4:0] EXP,
+    input  wire IS_DENORM,
+    output wire [15:0] MANT_OUT,
+    output wire [4:0]  EXP_OUT
+);
+    wire [15:0] mant_norm, mant_denorm;
+    wire [4:0]  exp_norm,  exp_denorm;
+
+    get_exp_mant_norm u_norm(.MANT(MANT), .EXP(EXP), .MANT_OUT(mant_norm), .EXP_OUT(exp_norm));
+    get_exp_mant_denorm u_denorm(.MANT(MANT), .MANT_OUT(mant_denorm), .EXP_OUT(exp_denorm));
+
+    assign MANT_OUT = IS_DENORM ? mant_denorm : mant_norm;
+    assign EXP_OUT  = IS_DENORM ? exp_denorm  : exp_norm;
+endmodule
+
