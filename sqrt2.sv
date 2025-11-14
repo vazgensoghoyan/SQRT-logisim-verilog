@@ -165,22 +165,18 @@ module get_exp_mant_denorm(
 );
     integer i;
     reg [4:0] shift;
-    reg [10:0] mant_shifted;
 
     always @(*) begin
-        shift = 0;
-
         for (i=9; i>=0; i=i-1) begin
             if (MANT[i]) begin
-                shift = 9 - i;
+                shift = 10 - i;
                 i = -1;
             end
         end
 
         if (shift[0]) shift = shift + 1;
-        mant_shifted = {1'b1, MANT} << shift;
+        MANT_OUT = {6'b0, MANT} << shift;
 
-        MANT_OUT = {5'd0, mant_shifted};
         EXP_OUT = 5'd8 - (shift >> 1);
     end
 endmodule
