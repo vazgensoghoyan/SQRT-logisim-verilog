@@ -216,7 +216,6 @@ module calc_sqrt(
     reg [3:0] sqrt_step;
     reg start;
 
-    // Инициализация на втором такте
     always @(posedge CLK) begin
         if (!ENABLE) begin
             mant_mem <= 0;
