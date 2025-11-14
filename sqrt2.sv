@@ -155,7 +155,7 @@ module get_exp_mant_norm(
     wire is_exp_even = ~EXP[0];
     wire [4:0] exp_adj = (EXP - is_exp_even) >> 1;
     assign EXP_OUT = exp_adj + 5'd8;
-    assign MANT_OUT = is_exp_even ? ({1'b1, MANT} << 6) : ({1'b1, MANT} << 5);
+    assign MANT_OUT = is_exp_even ? ({1'b1, MANT} << 1) : ({1'b1, MANT});
 endmodule
 
 module get_exp_mant_denorm(

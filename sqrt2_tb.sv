@@ -5,89 +5,66 @@ module sqrt2_tb;
 
     reg CLK;
     reg ENABLE;
-    reg [15:0] IO_IN;       // данные для подачи на inout
-    wire [15:0] IO_DATA;    // inout шина
+    reg [15:0] IO_IN;
+    wire [15:0] IO_DATA;
     wire IS_NAN, IS_PINF, IS_NINF, RESULT;
 
-    // inout управление: только первый такт ENABLE=1 шина принимает вход
     reg drive_io;
     assign IO_DATA = drive_io ? IO_IN : 16'hZZZZ;
 
-    // Подключение DUT
     sqrt2 dut (
-        .IO_DATA(IO_DATA),
-        .IS_NAN(IS_NAN),
-        .IS_PINF(IS_PINF),
-        .IS_NINF(IS_NINF),
-        .RESULT(RESULT),
-        .CLK(CLK),
-        .ENABLE(ENABLE)
+        IO_DATA, IS_NAN, IS_PINF, IS_NINF, RESULT, CLK, ENABLE
     );
 
-    // Лог-файл
-    integer fd;
-
-    // Тактирование
     initial CLK = 0;
-    always #1 CLK = ~CLK; // период 2нс
+    always #1 CLK = ~CLK;
+
+    integer fd;
+    integer i;
+
+    reg [15:0] test_inputs [0:5];
+    reg [15:0] test_expected [0:5];
 
     initial begin
-        fd = $fopen("sqrt2_log.csv", "w");
-        $fwrite(fd, "time,IO_DATA,IS_NAN,IS_PINF,IS_NINF,RESULT\n");
+        test_inputs[0] = 16'h3C00; test_expected[0] = 16'h3C00;
+        test_inputs[1] = 16'h0000; test_expected[1] = 16'h0000;
+        test_inputs[2] = 16'h4000; test_expected[2] = 16'h4200;
+        test_inputs[3] = 16'h7C00; test_expected[3] = 16'h7C00;
+        test_inputs[4] = 16'hFC00; test_expected[4] = 16'h0000;
+        test_inputs[5] = 16'h7E00; test_expected[5] = 16'h7E00;
 
-        // --- Сценарий 0 ---
+        fd = $fopen("sqrt2_log.txt", "w");
+
         ENABLE = 0;
-        IO_IN = 16'h0000; // 0
         drive_io = 0;
 
-        #2;
-        ENABLE = 1;
-        IO_IN = 16'h3C00; // 1.0
-        drive_io = 1;      // первый такт подачи данных
-        #2;
-        drive_io = 0;      // дальше ставим Z
+        for (i = 0; i <= 5; i = i + 1) begin
+            IO_IN = test_inputs[i];
 
-        // ждем окончания вычисления (~11 тактов)
-        #30;
+            ENABLE = 0; #2;
+            ENABLE = 1;
+            drive_io = 1; #2;
+            drive_io = 0;
 
-		/*
-        // --- Сценарий 1 ---
-        ENABLE = 0; #2;
-        IO_IN = 16'h4000; // 2.0
-        ENABLE = 1;
-        drive_io = 1;      // первый такт
-        #2;
-        drive_io = 0;
+            $fwrite(fd, "=== Тест %0d ===\n", i);
+            $fwrite(fd, "На входе число: %h\n", IO_IN);
+            $fwrite(fd, "Промежуточные значения:\n");
 
-        #30;
+            while (!RESULT) @(posedge CLK) begin
+                if (dut.loaded && dut.counter_value >= 2) begin
+                    $fwrite(fd, "  Такт %0d: IO_DATA = %h, RESULT = %b, IS_NAN=%b, IS_PINF=%b, IS_NINF=%b\n",
+                        dut.counter_value, dut.final_out, dut.RESULT, dut.IS_NAN, dut.IS_PINF, dut.IS_NINF);
+                end
+            end
 
-        // --- Сценарий 2: +Inf ---
-        ENABLE = 0; #2;
-        IO_IN = 16'h7C00;
-        ENABLE = 1;
-        drive_io = 1; #2;
-        drive_io = 0;
+            $fwrite(fd, "Результат: %h\n", dut.final_out);
+            $fwrite(fd, "Ожидалось: %h\n\n\n", test_expected[i]);
 
-        #10;
+            ENABLE = 0; #2;
+        end
 
-        // --- Сценарий 3: NaN ---
-        ENABLE = 0; #2;
-        IO_IN = 16'h7E00;
-        ENABLE = 1;
-        drive_io = 1; #2;
-        drive_io = 0;
-
-        #10;*/
-
-        ENABLE = 0; #2; // сброс
         $fclose(fd);
         $finish;
-    end
-
-    // Логирование на каждом фронте CLK
-    always @(posedge CLK) begin
-        $fwrite(fd, "%0d,%h,%b,%b,%b,%b\n",
-            $time, IO_DATA, IS_NAN, IS_PINF, IS_NINF, RESULT);
     end
 
 endmodule
