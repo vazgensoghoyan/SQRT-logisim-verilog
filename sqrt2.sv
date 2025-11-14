@@ -7,6 +7,8 @@ module sqrt2(
     input   wire CLK,
     input   wire ENABLE
 ); 
+
+    // считываем входные данные на первом такте
     reg [15:0] given_input;
     reg loaded = 0;
 
@@ -20,9 +22,11 @@ module sqrt2(
         end
     end
 
+    // счетчик
     wire[7:0] counter_value;
     counter _counter(counter_value, CLK, ENABLE);
 
+    // первичная обработка
     wire[9:0] mant;
     wire[4:0] exp;
     wire sign;
@@ -41,34 +45,34 @@ module sqrt2(
         given_input, sign, is_input_zero, is_input_nan, is_input_inf
     );
 
+    // нормалзация экспоненты и мантиссы + подсчет экспоненты
     wire[15:0] mant_norm;
-    wire[4:0] exp_norm;
+    wire[4:0] exp_res;
 
     get_exp_mant _gem(
-        mant_norm, exp_norm, mant, exp, is_input_denorm
+        mant_norm, exp_res, mant, exp, is_input_denorm
     );
 
-    wire [10:0] mant_sqrt;
+    // итерационный подсчет корня мантиссы
+    wire [9:0] mant_sqrt;
     wire sqrt_done;
 
     calc_sqrt _cs(
-        .MANT_SQRT(mant_sqrt),
-        .RESULT(sqrt_done),
-        .MANT_INP(mant_norm),
-        .COUNTER(counter_value),
-        .CLK(CLK),
-        .ENABLE(ENABLE)
+        mant_sqrt, sqrt_done, mant_norm,
+        counter_value, CLK, ENABLE
     );
 
+    // сбор результата
     reg [15:0] final_out;
     always @(*) begin
         if (bypass_core) begin
             final_out = special_out;
         end else begin
-            final_out = {1'b0, exp_norm, mant_sqrt};
+            final_out = {1'b0, exp_res, mant_sqrt};
         end
     end
 
+    // со второго такта выводим результат
     assign IO_DATA = (loaded && counter_value >= 2) ? final_out : 16'hZZZZ;
     assign IS_NAN = is_nan && counter_value >= 2;
     assign IS_PINF = is_pinf && counter_value >= 2;
@@ -77,6 +81,27 @@ module sqrt2(
 
 endmodule
 
+module input_parser(
+    output wire[9:0] MANT,
+    output wire[4:0] EXP,
+    output wire SIGN, 
+    output wire IS_ZERO, 
+    output wire IS_DENORM, 
+    output wire IS_NAN, 
+    output wire IS_INF,
+    input wire[15:0] NUM
+);
+
+    assign SIGN = NUM[15];
+    assign EXP  = NUM[14:10];
+    assign MANT = NUM[9:0];
+
+    assign IS_ZERO   = (EXP == 0) && (MANT == 0);
+    assign IS_DENORM = (EXP == 0) && (MANT != 0);
+    assign IS_INF    = (EXP == 5'b11111) && (MANT == 0);
+    assign IS_NAN    = (EXP == 5'b11111) && (MANT != 0);
+
+endmodule
 
 module special_case_handler(
     output reg[15:0] SPECIAL_OUT,
@@ -178,7 +203,7 @@ module get_exp_mant(
 endmodule
 
 module calc_sqrt(
-    output wire[10:0] MANT_SQRT,
+    output wire[9:0] MANT_SQRT,
     output wire RESULT,
     input wire[15:0] MANT_INP,
     input wire[7:0] COUNTER, 
@@ -219,7 +244,7 @@ module calc_sqrt(
         end
     end
 
-    assign MANT_SQRT = answer[10:0];
+    assign MANT_SQRT = answer[9:0];
     assign RESULT = (sqrt_step == 11);
 
 endmodule
