@@ -56,7 +56,7 @@ module sqrt2_tb;
         test_inputs[14] = 16'h7E00; test_expected[14] = 16'h7E00; // qNaN
         test_inputs[15] = 16'hFE00; test_expected[15] = 16'hFE00; // NaN
 
-        test_inputs[16] = 16'h03FF; test_expected[16] = 16'h21A7; // min norm
+        test_inputs[16] = 16'h03FF; test_expected[16] = 16'h1FFE; // max denorm
         test_inputs[17] = 16'h7BFF; test_expected[17] = 16'h5BFF; // max norm
 
         test_inputs[18] = 16'h3555; test_expected[18] = 16'h389E; // 0.3333
