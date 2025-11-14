@@ -1,54 +1,91 @@
+module sqrt2(
+    inout   wire[15:0] IO_DATA,
+    output  wire IS_NAN,
+    output  wire IS_PINF,
+    output  wire IS_NINF,
+    output  wire RESULT,
+    input   wire CLK,
+    input   wire ENABLE
+); 
+    
+    reg [15:0] given_input;
+    reg loaded = 0;
+
+    always @(posedge CLK) begin
+        if (ENABLE && !loaded) begin
+            given_input <= IO_DATA;
+            loaded <= 1;
+        end
+    end
+
+    wire[7:0] counter_value;
+    counter _counter(counter_value, CLK, ENABLE);
+
+    assign IO_DATA = (loaded && counter_value >= 2) ? given_input : 16'hZZZZ;
+
+endmodule
+
 module input_parser(
-    input wire [15:0] value, 
-    output wire [9:0] mant,
-    output wire [4:0] exp,
-    output wire sign,
-    output wire is_zero,
-    output wire is_denorm,
-    output wire is_nan,
-    output wire is_inf
+    output wire[9:0] MANT,
+    output wire[4:0] EXP,
+    output wire SIGN, 
+    output wire IS_ZERO, 
+    output wire IS_DENORM, 
+    output wire IS_NAN, 
+    output wire IS_INF,
+    input wire[15:0] NUM
 );
 
-    assign sign = value[15];
-    assign exp  = value[14:10];
-    assign mant = value[9:0];
+    assign SIGN = NUM[15];
+    assign EXP  = NUM[14:10];
+    assign MANT = NUM[9:0];
 
-    assign is_zero   = (exp == 0) && (mant == 0);
-    assign is_denorm = (exp == 0) && (mant != 0);
-    assign is_inf    = (exp == 5'b11111) && (mant == 0);
-    assign is_nan    = (exp == 5'b11111) && (mant != 0);
+    assign IS_ZERO   = (EXP == 0) && (MANT == 0);
+    assign IS_DENORM = (EXP == 0) && (MANT != 0);
+    assign IS_INF    = (EXP == 5'b11111) && (MANT == 0);
+    assign IS_NAN    = (EXP == 5'b11111) && (MANT != 0);
 
 endmodule
 
 module special_case_handler(
-    input wire [15:0] value, 
-    input wire sign,
-    input wire is_zero_inp,
-    input wire is_nan_inp,
-    input wire is_inf_inp,
-    output reg [15:0] special_out,
-    output wire is_nan,
-    output wire is_pinf,
-    output wire is_ninf,
-    output wire bypass_core
+    output reg  [15:0] SPECIAL_OUT,
+    output wire        IS_NAN,
+    output wire        IS_PINF,
+    output wire        IS_NINF,
+    output wire        BYPASS_CORE,
+    input  wire [15:0] VALUE,
+    input  wire        SIGN,
+    input  wire        IS_ZERO_INP,
+    input  wire        IS_NAN_INP,
+    input  wire        IS_INF_INP
 );
 
-    assign is_nan  = is_nan_inp || (is_inf_inp && sign) || (~is_zero_inp && sign);
-    assign is_ninf = 1'b0;
-    assign is_pinf = ~sign & is_inf_inp;
+    assign IS_NAN  = IS_NAN_INP || (IS_INF_INP && SIGN) || (~IS_ZERO_INP && SIGN);
+    assign IS_NINF = 1'b0;
+    assign IS_PINF = ~SIGN & IS_INF_INP;
 
-    assign bypass_core = is_zero_inp || is_nan || is_pinf;
+    assign BYPASS_CORE = IS_ZERO_INP || IS_NAN || IS_PINF;
 
     always @(*) begin
-        if (is_nan_inp) begin
-            special_out = value | 16'h7E00;
-        end else if (is_nan) begin
-            special_out = 16'hFE00;
-        end else if (is_pinf || is_zero_inp) begin
-            special_out = value;
+        if (IS_NAN_INP) begin
+            SPECIAL_OUT = VALUE | 16'h7E00;  // утихомириваем NaN
+        end else if (IS_NAN) begin
+            SPECIAL_OUT = 16'hFE00;          // qNaN
+        end else if (IS_PINF || IS_ZERO_INP) begin
+            SPECIAL_OUT = VALUE;             // +Inf или 0
         end else begin
-            special_out = 16'h0000;
+            SPECIAL_OUT = 16'h0000;          // не спец случай
         end
     end
 
+endmodule
+
+module counter(output reg[7:0] OUT, input CLK, ENABLE);
+  always @ (posedge CLK) begin
+    if (ENABLE) begin
+        OUT = OUT + 1; 
+    end else begin
+      OUT = 0;
+    end
+  end
 endmodule
