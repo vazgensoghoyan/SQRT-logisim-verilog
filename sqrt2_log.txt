@@ -1,0 +1,343 @@
+=== Тест 0 ===
+На входе число: 3c00
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 3c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 3c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 3c01, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 3c02, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 3c04, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 3c08, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 3c10, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 3c20, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 3c40, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 3c80, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 3d00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 3e00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 3c00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 3c00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 3c00
+
+
+=== Тест 1 ===
+На входе число: 4000
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 3c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 3c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 3c01, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 3c02, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 3c05, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 3c0b, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 3c16, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 3c2d, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 3c5a, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 3cb5, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 3d6a, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 3ed4, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 3da8, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 3da8, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 3da8
+
+
+=== Тест 2 ===
+На входе число: 4200
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 3c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 3c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 3c01, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 3c03, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 3c06, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 3c0d, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 3c1b, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 3c37, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 3c6e, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 3cdd, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 3dbb, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 3f76, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 3eed, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 3eed, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 3eed
+
+
+=== Тест 3 ===
+На входе число: 4500
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 4000, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 4000, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 4001, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 4002, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 4004, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 4008, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 4011, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 4023, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 4047, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 408f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 411e, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 423c, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 4078, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 4078, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 4078
+
+
+=== Тест 4 ===
+На входе число: 4700
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 4000, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 4000, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 4001, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 4002, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 4005, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 400a, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 4015, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 402a, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 4054, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 40a9, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 4152, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 42a5, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 414a, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 414a, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 414a
+
+
+=== Тест 5 ===
+На входе число: 0001
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 0c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 0c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 0c01, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 0c02, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 0c04, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 0c08, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 0c10, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 0c20, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 0c40, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 0c80, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 0d00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 0e00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 0c00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 0c00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 0c00
+
+
+=== Тест 6 ===
+На входе число: 0010
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 1400, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 1400, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 1401, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 1402, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 1404, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 1408, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 1410, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 1420, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 1440, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 1480, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 1500, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 1600, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 1400, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 1400, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 1400
+
+
+=== Тест 7 ===
+На входе число: 0000
+
+Промежуточные значения:
+
+Результат: IO_DATA = 0000, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 0000
+
+
+=== Тест 8 ===
+На входе число: 8000
+
+Промежуточные значения:
+
+Результат: IO_DATA = 8000, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 8000
+
+
+=== Тест 9 ===
+На входе число: c000
+
+Промежуточные значения:
+
+Результат: IO_DATA = fe00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: fe00
+
+
+=== Тест 10 ===
+На входе число: bc00
+
+Промежуточные значения:
+
+Результат: IO_DATA = fe00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: fe00
+
+
+=== Тест 11 ===
+На входе число: b800
+
+Промежуточные значения:
+
+Результат: IO_DATA = fe00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: fe00
+
+
+=== Тест 12 ===
+На входе число: 7c00
+
+Промежуточные значения:
+
+Результат: IO_DATA = 7c00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 7c00
+
+
+=== Тест 13 ===
+На входе число: fc00
+
+Промежуточные значения:
+
+Результат: IO_DATA = fe00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: fe00
+
+
+=== Тест 14 ===
+На входе число: 7e00
+
+Промежуточные значения:
+
+Результат: IO_DATA = 7e00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 7e00
+
+
+=== Тест 15 ===
+На входе число: fe00
+
+Промежуточные значения:
+
+Результат: IO_DATA = fe00, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: fe00
+
+
+=== Тест 16 ===
+На входе число: 03ff
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 1c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 1c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 1c01, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 1c03, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 1c07, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 1c0f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 1c1f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 1c3f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 1c7f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 1cff, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 1dff, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 1fff, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 1ffe, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 1ffe, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 1ffe
+
+
+=== Тест 17 ===
+На входе число: 7bff
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 5800, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 5800, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 5801, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 5803, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 5807, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 580f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 581f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 583f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 587f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 58ff, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 59ff, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 5bff, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 5bff, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 5bff, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 5bff
+
+
+=== Тест 18 ===
+На входе число: 3555
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 3800, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 3800, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 3801, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 3802, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 3804, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 3809, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 3812, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 3824, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 3849, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 3893, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 3927, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 3a4f, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 389e, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 389e, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 389e
+
+
+=== Тест 19 ===
+На входе число: 3e00
+
+Промежуточные значения:
+  Такт 2: IO_DATA = 3c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 3: IO_DATA = 3c00, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 4: IO_DATA = 3c01, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 5: IO_DATA = 3c02, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 6: IO_DATA = 3c04, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 7: IO_DATA = 3c09, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 8: IO_DATA = 3c13, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 9: IO_DATA = 3c27, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 10: IO_DATA = 3c4e, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 11: IO_DATA = 3c9c, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 12: IO_DATA = 3d39, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 13: IO_DATA = 3e73, RESULT = 0, IS_NAN=0, IS_PINF=0, IS_NINF=0
+  Такт 14: IO_DATA = 3ce6, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Результат: IO_DATA = 3ce6, RESULT = 1, IS_NAN=0, IS_PINF=0, IS_NINF=0
+
+Ожидалось: 3ce6
+
+
