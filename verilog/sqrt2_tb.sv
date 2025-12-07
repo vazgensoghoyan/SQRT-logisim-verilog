@@ -1,102 +1,102 @@
-`timescale 1ns/1ps
 `include "sqrt2.sv"
 
 module sqrt2_tb;
-
-    parameter _N = 20;
-
     reg CLK;
     reg ENABLE;
-    reg [15:0] IO_IN;
-    wire [15:0] IO_DATA;
-    wire IS_NAN, IS_PINF, IS_NINF, RESULT;
+    reg [15:0] IO_DATA_reg;
+    reg should_be_inp;
+    wire [15:0] IO_DATA_wire;
+    wire IS_NAN_wire;
+    wire IS_PINF_wire;
+    wire IS_NINF_wire;
+    wire RESULT_wire;
 
-    reg should_give_data;
-    assign IO_DATA = should_give_data ? IO_IN : 16'hZZZZ;
+    assign IO_DATA_wire = should_be_inp ? IO_DATA_reg : 16'bz;
 
-    sqrt2 dut (
-        IO_DATA, IS_NAN, IS_PINF, IS_NINF, RESULT, CLK, ENABLE
+    sqrt2 uut (
+        .IO_DATA(IO_DATA_wire),
+        .IS_NAN(IS_NAN_wire),
+        .IS_PINF(IS_PINF_wire),
+        .IS_NINF(IS_NINF_wire),
+        .RESULT(RESULT_wire),
+        .CLK(CLK),
+        .ENABLE(ENABLE)
     );
 
-    initial CLK = 0;
-    always #1 CLK = ~CLK;
-
-    integer fd;
-    integer i;
-
-    reg [15:0] test_inputs [0:_N-1];
-    reg [15:0] test_expected [0:_N-1];
+    reg [15:0] inp_tests [0:22];
+    reg [15:0] exp_results [0:22];
+    integer i, tick_count;
 
     initial begin
-        // Нормальные положительные числа
-        test_inputs[0]  = 16'h3C00; test_expected[0]  = 16'h3C00; // 1.0
-        test_inputs[1]  = 16'h4000; test_expected[1]  = 16'h3dA8; // 2.0
-        test_inputs[2]  = 16'h4200; test_expected[2]  = 16'h3EEd; // 3.0
-        test_inputs[3]  = 16'h4500; test_expected[3]  = 16'h4078; // 5.0
-        test_inputs[4]  = 16'h4700; test_expected[4]  = 16'h414A; // 10.0
-
-        // Малые положительные числа (denorm)
-        test_inputs[5]  = 16'h0001; test_expected[5]  = 16'h0C00; // min denorm
-        test_inputs[6]  = 16'h0010; test_expected[6]  = 16'h1400; // denorm
-
-        // Нули
-        test_inputs[7]  = 16'h0000; test_expected[7]  = 16'h0000; // +0
-        test_inputs[8]  = 16'h8000; test_expected[8]  = 16'h8000; // -0
-
-        // Отрицательные числа
-        test_inputs[9]  = 16'hC000; test_expected[9]  = 16'hfe00; // -2.0
-        test_inputs[10] = 16'hBC00; test_expected[10] = 16'hfe00; // -1.5
-        test_inputs[11] = 16'hB800; test_expected[11] = 16'hfe00; // -1.0
-
-        // +Inf и -Inf
-        test_inputs[12] = 16'h7C00; test_expected[12] = 16'h7C00; // +inf
-        test_inputs[13] = 16'hFC00; test_expected[13] = 16'hfe00; // -inf
-
-        // NaN
-        test_inputs[14] = 16'h7E00; test_expected[14] = 16'h7E00; // qNaN
-        test_inputs[15] = 16'hFE00; test_expected[15] = 16'hFE00; // NaN
-
-        test_inputs[16] = 16'h03FF; test_expected[16] = 16'h1FFE; // max denorm
-        test_inputs[17] = 16'h7BFF; test_expected[17] = 16'h5BFF; // max norm
-
-        test_inputs[18] = 16'h3555; test_expected[18] = 16'h389E; // 0.3333
-        test_inputs[19] = 16'h3E00; test_expected[19] = 16'h3cE6; // 1.5
-
-
-        fd = $fopen("sqrt2_log.txt", "w");
-
-        ENABLE = 0;
-        should_give_data = 0;
-
-        for (i = 0; i < _N; i = i + 1) begin
-            IO_IN = test_inputs[i];
-
-            ENABLE = 0; #2;
-            ENABLE = 1;
-            should_give_data = 1; #2;
-            should_give_data = 0;
-
-            $fwrite(fd, "=== Тест %0d ===\n", i);
-            $fwrite(fd, "На входе число: %h\n", IO_IN);
-            $fwrite(fd, "\nПромежуточные значения:\n");
-
-            while (!RESULT) @(posedge CLK) begin
-                if (dut.loaded && dut.counter_value >= 2) begin
-                    $fwrite(fd, "  Такт %0d: IO_DATA = %h, RESULT = %b, IS_NAN=%b, IS_PINF=%b, IS_NINF=%b\n",
-                        dut.counter_value, dut.IO_DATA, dut.RESULT, dut.IS_NAN, dut.IS_PINF, dut.IS_NINF);
-                end
-            end
-
-            $fwrite(fd, "\nРезультат: IO_DATA = %h, RESULT = %b, IS_NAN=%b, IS_PINF=%b, IS_NINF=%b\n",
-                        dut.IO_DATA, dut.RESULT, dut.IS_NAN, dut.IS_PINF, dut.IS_NINF);
-            
-            $fwrite(fd, "\nОжидалось: %h\n\n\n", test_expected[i]);
-
-            ENABLE = 0; #2;
-        end
-
-        $fclose(fd);
-        $finish;
+        inp_tests[0]  = 16'h4800; exp_results[0] = 16'h41a8;
+        inp_tests[1]  = 16'h3400; exp_results[1] = 16'h3800;
+        inp_tests[2]  = 16'hBC00; exp_results[2] = 16'hFE00;
+        inp_tests[3]  = 16'hFE00; exp_results[3] = 16'hFE00;
+        inp_tests[4]  = 16'h7C00; exp_results[4] = 16'h7C00;
+        inp_tests[5]  = 16'h0000; exp_results[5] = 16'h0000;
+        inp_tests[6]  = 16'h3C00; exp_results[6] = 16'h3C00;
+        inp_tests[7]  = 16'h4000; exp_results[7] = 16'h3DA8;
+        inp_tests[8]  = 16'h4200; exp_results[8] = 16'h3EED;
+        inp_tests[9]  = 16'h4500; exp_results[9] = 16'h4078;
+        inp_tests[10] = 16'h4700; exp_results[10] = 16'h414A;
+        inp_tests[11] = 16'h0001; exp_results[11] = 16'h0C00;
+        inp_tests[12] = 16'h0010; exp_results[12] = 16'h1400;
+        inp_tests[13] = 16'h8000; exp_results[13] = 16'h8000;
+        inp_tests[14] = 16'hC000; exp_results[14] = 16'hFE00;
+        inp_tests[15] = 16'hBC00; exp_results[15] = 16'hFE00;
+        inp_tests[16] = 16'hB800; exp_results[16] = 16'hFE00;
+        inp_tests[17] = 16'hFC00; exp_results[17] = 16'hFE00;
+        inp_tests[18] = 16'h7E00; exp_results[18] = 16'h7E00;
+        inp_tests[19] = 16'h03FF; exp_results[19] = 16'h1FFE;
+        inp_tests[20] = 16'h7BFF; exp_results[20] = 16'h5BFF;
+        inp_tests[21] = 16'h3555; exp_results[21] = 16'h389E;
+        inp_tests[22] = 16'h3E00; exp_results[22] = 16'h3CE6;
     end
 
+
+    always #1 CLK = ~CLK;
+
+    initial begin
+        CLK = 0;
+        ENABLE = 0;
+        should_be_inp = 0;
+        IO_DATA_reg = 16'bz;
+
+        for (i = 0; i < 23; i = i + 1) begin
+            $display("TEST %0d, Input = %h", i, inp_tests[i]);
+
+            #2;
+            should_be_inp = 1;
+            IO_DATA_reg = inp_tests[i];
+
+            ENABLE = 0;
+            #2;
+            ENABLE = 1;
+
+            #2;
+            should_be_inp = 0;
+            IO_DATA_reg = 16'bz;
+
+            tick_count = 0;
+
+            while (RESULT_wire !== 1'b1) begin
+                @(posedge CLK);
+                tick_count = tick_count + 1;
+                $display("    Tick %0d: IO_DATA=%h, RESULT=%b, IS_NAN=%b, IS_PINF=%b, IS_NINF=%b",
+                        tick_count, IO_DATA_wire, RESULT_wire, IS_NAN_wire, IS_PINF_wire, IS_NINF_wire);
+            end
+
+            if (IO_DATA_wire == exp_results[i])
+                $display("PASSED: Output = %h", IO_DATA_wire);
+            else
+                $display("FAILED: Output = %h, Expected = %h", IO_DATA_wire, exp_results[i]);
+            
+            $display();
+            ENABLE = 0;
+            #2;
+        end
+
+        $display();
+        $finish;
+    end
 endmodule
