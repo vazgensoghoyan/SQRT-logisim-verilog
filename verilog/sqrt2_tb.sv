@@ -13,7 +13,7 @@ module sqrt2_tb;
 
     assign IO_DATA_wire = should_be_inp ? IO_DATA_reg : 16'bz;
 
-    sqrt2 uut (
+    sqrt2 sqrt_module (
         .IO_DATA(IO_DATA_wire),
         .IS_NAN(IS_NAN_wire),
         .IS_PINF(IS_PINF_wire),
@@ -34,12 +34,12 @@ module sqrt2_tb;
         inp_tests[1]  = 16'h4000; exp_results[1] = 16'h3DA8; // 2
         inp_tests[2]  = 16'h4200; exp_results[2] = 16'h3EED; // 3
         inp_tests[3]  = 16'h4500; exp_results[3] = 16'h4078; // 5
-        inp_tests[4] = 16'h4700; exp_results[4] = 16'h414A; // 10
+        inp_tests[4] = 16'h4700; exp_results[4] = 16'h414A; // 7
         inp_tests[5] = 16'h7BFF; exp_results[5] = 16'h5BFF; // max norm
 
         // Малые положительные числа (denorm)
         inp_tests[6] = 16'h0001; exp_results[6] = 16'h0C00; // min denorm
-        inp_tests[7] = 16'h0010; exp_results[7] = 16'h1400; // denorm
+        inp_tests[7] = 16'h0010; exp_results[7] = 16'h1400; // next min denorm
         inp_tests[8] = 16'h03FF; exp_results[8] = 16'h1FFE; // max denorm
 
         // Нули
@@ -48,8 +48,8 @@ module sqrt2_tb;
 
         // Отрицательные числа
         inp_tests[11] = 16'hC000; exp_results[11] = 16'hFE00; // -2
-        inp_tests[12] = 16'hBC00; exp_results[12] = 16'hFE00; // -1.5
-        inp_tests[13] = 16'hB800; exp_results[13] = 16'hFE00; // -1
+        inp_tests[12] = 16'hBC00; exp_results[12] = 16'hFE00; // -1
+        inp_tests[13] = 16'hB800; exp_results[13] = 16'hFE00; // -0.5
 
         // +Inf и -Inf
         inp_tests[14]  = 16'h7C00; exp_results[14] = 16'h7C00; // +inf
@@ -57,19 +57,19 @@ module sqrt2_tb;
 
         // NaN
         inp_tests[16] = 16'h7E00; exp_results[16] = 16'h7E00; // qNaN
-        inp_tests[17]  = 16'hFE00; exp_results[17] = 16'hFE00; // NaN
+        inp_tests[17]  = 16'hFE00; exp_results[17] = 16'hFE00; // -qNaN
 
         // other
         inp_tests[18] = 16'h3555; exp_results[18] = 16'h389E; // 0.333
-        inp_tests[19] = 16'h3E00; exp_results[19] = 16'h3CE6; // 0.5
-        inp_tests[20] = 16'h4800; exp_results[20] = 16'h41A8; // 12
+        inp_tests[19] = 16'h3E00; exp_results[19] = 16'h3CE6; // 1.5
+        inp_tests[20] = 16'h4800; exp_results[20] = 16'h41A8; // 8
         inp_tests[21] = 16'h3400; exp_results[21] = 16'h3800; // 0.25
         inp_tests[22] = 16'h3A00; exp_results[22] = 16'h3AED; // 0.75
         inp_tests[23] = 16'h4600; exp_results[23] = 16'h40E6; // 6
-        inp_tests[24] = 16'h4708; exp_results[24] = 16'h414D; // 10.25
-        inp_tests[25] = 16'h4880; exp_results[25] = 16'h4200; // 16
+        inp_tests[24] = 16'h4708; exp_results[24] = 16'h414D; // 7.032
+        inp_tests[25] = 16'h4880; exp_results[25] = 16'h4200; // 9
         inp_tests[26] = 16'h3500; exp_results[26] = 16'h3878; // 0.3125
-        inp_tests[27] = 16'h3C80; exp_results[27] = 16'h3C3E; // 1.0625
+        inp_tests[27] = 16'h3C80; exp_results[27] = 16'h3C3E; // 1.125
     end
 
     always #1 CLK = ~CLK;
