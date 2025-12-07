@@ -53,7 +53,6 @@ module sqrt2_tb;
         inp_tests[22] = 16'h3E00; exp_results[22] = 16'h3CE6;
     end
 
-
     always #1 CLK = ~CLK;
 
     initial begin
@@ -65,25 +64,23 @@ module sqrt2_tb;
         for (i = 0; i < 23; i = i + 1) begin
             $display("TEST %0d, Input = %h", i, inp_tests[i]);
 
-            #2;
+            tick_count = 0;
             should_be_inp = 1;
             IO_DATA_reg = inp_tests[i];
 
             ENABLE = 0;
-            #2;
+            @(negedge CLK);
             ENABLE = 1;
 
-            #2;
+            @(negedge CLK);
             should_be_inp = 0;
             IO_DATA_reg = 16'bz;
 
-            tick_count = 0;
-
             while (RESULT_wire !== 1'b1) begin
-                @(posedge CLK);
+                @(negedge CLK);
                 tick_count = tick_count + 1;
                 $display("    Tick %0d: IO_DATA=%h, RESULT=%b, IS_NAN=%b, IS_PINF=%b, IS_NINF=%b",
-                        tick_count, IO_DATA_wire, RESULT_wire, IS_NAN_wire, IS_PINF_wire, IS_NINF_wire);
+                    tick_count, IO_DATA_wire, RESULT_wire, IS_NAN_wire, IS_PINF_wire, IS_NINF_wire);
             end
 
             if (IO_DATA_wire == exp_results[i])
@@ -99,4 +96,5 @@ module sqrt2_tb;
         $display();
         $finish;
     end
+
 endmodule

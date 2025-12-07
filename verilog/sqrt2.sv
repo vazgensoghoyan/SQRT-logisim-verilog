@@ -244,7 +244,7 @@ module calc_sqrt(
         end
     end
 
-    always @(posedge CLK) begin
+    always @(negedge CLK) begin
         if (ENABLE && start && sqrt_step < 11) begin
             mid = ((answer << 2) | 1) << (20 - 2*sqrt_step);
             if (mid <= mant_mem) begin
