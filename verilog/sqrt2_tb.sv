@@ -83,12 +83,12 @@ module sqrt2_tb;
             while (!RESULT) @(posedge CLK) begin
                 if (dut.loaded && dut.counter_value >= 2) begin
                     $fwrite(fd, "  Такт %0d: IO_DATA = %h, RESULT = %b, IS_NAN=%b, IS_PINF=%b, IS_NINF=%b\n",
-                        dut.counter_value, dut.final_out, dut.RESULT, dut.IS_NAN, dut.IS_PINF, dut.IS_NINF);
+                        dut.counter_value, dut.IO_DATA, dut.RESULT, dut.IS_NAN, dut.IS_PINF, dut.IS_NINF);
                 end
             end
 
             $fwrite(fd, "\nРезультат: IO_DATA = %h, RESULT = %b, IS_NAN=%b, IS_PINF=%b, IS_NINF=%b\n",
-                        dut.final_out, dut.RESULT, dut.IS_NAN, dut.IS_PINF, dut.IS_NINF);
+                        dut.IO_DATA, dut.RESULT, dut.IS_NAN, dut.IS_PINF, dut.IS_NINF);
             
             $fwrite(fd, "\nОжидалось: %h\n\n\n", test_expected[i]);
 

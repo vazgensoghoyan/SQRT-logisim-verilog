@@ -62,22 +62,40 @@ module sqrt2(
         counter_value, CLK, ENABLE
     );
 
-    // сбор результата
-    reg [15:0] final_out;
-    always @(*) begin
-        if (bypass_core) begin
-            final_out = special_out;
-        end else begin
-            final_out = {1'b0, exp_res, mant_sqrt};
+    // со второго такта выводим результат
+    reg [15:0] io_data_reg;
+    reg is_nan_reg, is_pinf_reg, is_ninf_reg;
+    reg result_reg;
+
+    always @(posedge CLK) begin
+        if (!ENABLE) begin
+            io_data_reg <= 16'hZZZZ;
+            is_nan_reg  <= 0;
+            is_pinf_reg <= 0;
+            is_ninf_reg <= 0;
+            result_reg  <= 0;
+        end else if (loaded) begin
+            if (bypass_core) begin
+                io_data_reg <= special_out;
+                is_nan_reg  <= is_nan;
+                is_pinf_reg <= is_pinf;
+                is_ninf_reg <= is_ninf;
+                result_reg  <= 1;
+            end else begin
+                io_data_reg <= {1'b0, exp_res, mant_sqrt};
+                is_nan_reg  <= 0;
+                is_pinf_reg <= 0;
+                is_ninf_reg <= 0;
+                result_reg  <= sqrt_done;
+            end
         end
     end
 
-    // со второго такта выводим результат
-    assign IO_DATA = (loaded && counter_value >= 2) ? final_out : 16'hZZZZ;
-    assign IS_NAN = is_nan && counter_value >= 2;
-    assign IS_PINF = is_pinf && counter_value >= 2;
-    assign IS_NINF = is_ninf && counter_value >= 2;
-    assign RESULT = bypass_core || sqrt_done;
+    assign IO_DATA = io_data_reg;
+    assign IS_NAN = is_nan_reg;
+    assign IS_PINF = is_pinf_reg;
+    assign IS_NINF = is_ninf_reg;
+    assign RESULT = result_reg;
 
 endmodule
 
