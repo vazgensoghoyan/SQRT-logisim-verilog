@@ -9,7 +9,7 @@ module sqrt2(
 ); 
 
     // считываем входные данные на первом такте
-    reg [15:0] given_input;
+    reg [15:0] given_input = 0;
     reg loaded = 0;
 
     always @(posedge CLK) begin
@@ -63,9 +63,11 @@ module sqrt2(
     );
 
     // со второго такта выводим результат
-    reg [15:0] io_data_reg;
-    reg is_nan_reg, is_pinf_reg, is_ninf_reg;
-    reg result_reg;
+    reg [15:0] io_data_reg = 16'hZZZZ;
+    reg is_nan_reg = 0;
+    reg is_pinf_reg = 0;
+    reg is_ninf_reg = 0;
+    reg result_reg = 0;
 
     always @(posedge CLK) begin
         if (!ENABLE) begin
@@ -154,7 +156,7 @@ module special_case_handler(
 
 endmodule
 
-module counter(output reg[7:0] OUT, input CLK, ENABLE);
+module counter(output reg[7:0] OUT = 0, input CLK, ENABLE);
   always @(posedge CLK) begin
     if (ENABLE) begin
         OUT <= OUT + 1; 
@@ -224,11 +226,11 @@ module calc_sqrt(
     input wire CLK,
     input wire ENABLE
 );
-    reg [31:0] mant_mem;
-    reg [15:0] answer;
-    reg [31:0] mid;
-    reg [3:0] sqrt_step;
-    reg start;
+    reg [31:0] mant_mem = 0;
+    reg [15:0] answer = 0;
+    reg [31:0] mid = 0;
+    reg [3:0] sqrt_step = 0;
+    reg start = 0;
 
     always @(posedge CLK) begin
         if (!ENABLE) begin

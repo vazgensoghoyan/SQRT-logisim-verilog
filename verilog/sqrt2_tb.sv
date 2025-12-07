@@ -56,11 +56,6 @@ module sqrt2_tb;
     always #1 CLK = ~CLK;
 
     initial begin
-        CLK = 0;
-        ENABLE = 0;
-        should_be_inp = 0;
-        IO_DATA_reg = 16'bz;
-
         for (i = 0; i < 23; i = i + 1) begin
             $display("TEST %0d, Input = %h", i, inp_tests[i]);
 
@@ -68,8 +63,7 @@ module sqrt2_tb;
             should_be_inp = 1;
             IO_DATA_reg = inp_tests[i];
 
-            ENABLE = 0;
-            @(negedge CLK);
+            CLK = 0;
             ENABLE = 1;
 
             @(negedge CLK);
